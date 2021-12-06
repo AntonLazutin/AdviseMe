@@ -77,8 +77,6 @@ def review_page(request, review_id):
         if comment_form.is_valid():
             if request.user.is_authenticated:
                 comment_form.instance.author = request.user
-            else:
-                comment_form.instance.author = None
             comment_form.instance.review = review
             comment_form.save()
             return HttpResponseRedirect(request.path_info)
