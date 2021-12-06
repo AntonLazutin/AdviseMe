@@ -75,7 +75,10 @@ def review_page(request, review_id):
     comment_form = CommentForm(request.POST)
     if request.method == 'POST':
         if comment_form.is_valid():
-            comment_form.instance.author = request.user
+            if request.user:
+                comment_form.instance.author = request.user
+            else:
+                comment_form.instance.author = User.is_anonymous
             comment_form.instance.review = review
             comment_form.save()
             return HttpResponseRedirect(request.path_info)
