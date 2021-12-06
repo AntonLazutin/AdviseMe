@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+{% block content %}
+    {% if  reviews %}
+        {% for review in reviews %}
+            <div class="card mb-3">
+                <h4 class="card-header">
+                    {{ review }}
+                </h4>
+                <div class="card-body">
+                    {{ review.text|linebreaks }}
+                    <a class="btn btn-primary" href="{% url 'review_page' review.id %}">View</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>There are no reviews</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+        <p><a href="{% url 'create_review'%}" class="btn btn-primary" role="button">
+            Create new recommendation
+        </a></p>
+    {% endif %}
+{% endblock content %}

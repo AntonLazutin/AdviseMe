@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load django_bootstrap5 %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% block user_page %}
+            {{ username }}
+        {% endblock %}
+    {% endif %}
+    <p>Review of {{ subject }}</p>
+    <p>{{ text }}</p>
+    <p>{{ rating }}/5</p>
+    <p>publish date: {{ pub_date }}</p>
+    <p>by <a href="{% url 'profile' author.id %}">{{ author }}</a></p>
+    <h2>Comment section...</h2>
+    {% if not review.comments.all %}
+        <p>There are no comments yet</p>
+    {% else %}
+        {% for comment in review.comments.all %}
+            <strong>{{ comment }}</strong><br>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+    {% endif %}
+    <strong>Add comment:</strong>
+         <form method="post" action="" style="width: 25%; height: 50%">
+            {% csrf_token %}
+            {% bootstrap_form comment_form %}
+            <input type="submit" name="AddComment" value="Add comment">
+        </form>
+{% endblock content %}

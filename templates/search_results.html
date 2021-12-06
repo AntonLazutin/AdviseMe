@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    {% if object_list.count > 0 %}
+          {% for review in object_list %}
+               <div class="card mb-3">
+                   <h4 class="card-header">
+                       {{ review }}
+                   </h4>
+                   <div class="card-body">
+                       {{ review.text|linebreaks }}
+                       <a class="btn btn-primary" href="{% url 'review_page' review.id %}">View</a>
+                   </div>
+               </div>
+          {% endfor %}
+        {% else %}
+        <h4>Ooops...</h4>
+    {% endif %}
+{% endblock content %}
