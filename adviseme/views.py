@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirec
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import AnonymousUser
 from django.views.generic import ListView
 from django.http import Http404
 from django.db.models import Q
@@ -75,8 +76,8 @@ def review_page(request, review_id):
     comment_form = CommentForm(request.POST)
     if request.method == 'POST':
         if comment_form.is_valid():
-            if request.user:
-                comment_form.instance.author = request.user
+            if request.user.is_anonymous:
+                comment_form.instance.author = AnonymousUser
             else:
                 comment_form.instance.author = User.is_anonymous
             comment_form.instance.review = review
