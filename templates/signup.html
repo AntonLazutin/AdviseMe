@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
-
+{% load socialaccount %}
+{% providers_media_js %}]
 {% load django_bootstrap5 %}
 {% block  content%}
      <form method="post" action="">
         {% csrf_token %}
         {% bootstrap_form form %}
         <input type="submit" name="SignUp" value="Sign up">
+        <div class="social-btn text-center">
+			<a href="{% provider_login_url 'vk'%}" class="btn btn-primary btn-lg"><i class="fa fa-vk"></i> VK</a>
+			<a href="{% provider_login_url 'google'%}" class="btn btn-danger btn-lg"><i class="fa fa-google"></i> Google</a>
+		</div>
     </form>
 {% endblock content %}

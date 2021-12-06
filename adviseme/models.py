@@ -16,29 +16,6 @@ class Genre(models.Model):
         return self.title
 
 
-class Movie(models.Model):
-    title = models.CharField(max_length=30)
-    director = models.TextField(max_length=20)
-    premiere_date = models.DateField()
-    id = models.BigAutoField(default=None, primary_key=True)
-
-    def __str__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return reverse('movie_detail', args=[str(self.id)])
-
-    class Meta:
-        ordering = ['-title']
-
-
-class Book(models.Model):
-    title = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.title
-
-
 class Review(models.Model):
     RATING_CHOICES = (
         (1, '1'),
