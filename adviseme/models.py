@@ -41,12 +41,12 @@ class Review(models.Model):
 
 class Comment(models.Model):
     review = models.ForeignKey(Review, related_name='comments', on_delete=models.CASCADE)
-    author = models.ForeignKey(UserModel, blank=True, null=True, on_delete=models.CASCADE)
+    author = models.ForeignKey(UserModel, blank=True, on_delete=models.CASCADE)
     text = models.TextField(max_length=100)
     date_added = models.DateField(auto_now_add=True)
 
     def __str__(self):
-        if self.author is not None:
+        if self.author:
             return '%s - %s' % (self.author, self.date_added)
         else:
             return '%s - %s' % ('Anon', self.date_added)
