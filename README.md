@@ -1,0 +1,2 @@
+# BroSis
+Simple Django app
